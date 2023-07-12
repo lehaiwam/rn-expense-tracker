@@ -1,82 +1,8 @@
 import { createContext, useReducer } from 'react'
 
-const DUMMY_DATA = [
-    {
-        id: 'e1',
-        date: new Date("2023-05-22"),
-        description: 'Groceries',
-        amount: 3899.88,
-    },
-    {
-        id: 'e2',
-        date: new Date("2023-05-25"),
-        description: 'Estate Levy',
-        amount: 1408.00,
-    },
-    {
-        id: 'e3',
-        date: new Date("2023-05-29"),
-        description: 'Rases Soccer',
-        amount: 980.00,
-    },  
-    {
-        id: 'e4',
-        date: new Date("2023-05-26"),
-        description: 'Petrol',
-        amount: 5577.25,
-    },
-    {
-        id: 'e5',
-        date: new Date("2023-05-25"),
-        description: 'Gym Subscription',
-        amount: 988.25,
-    },
-    {
-        id: 'e6',
-        date: new Date("2023-05-28"),
-        description: 'Fentse',
-        amount: 2500.00,
-    },
-    {
-        id: 'e7',
-        date: new Date("2023-05-22"),
-        description: 'Groceries',
-        amount: 3899.88,
-    },
-    {
-        id: 'e8',
-        date: new Date("2023-05-25"),
-        description: 'Estate Levy',
-        amount: 1408.00,
-    },
-    {
-        id: 'e9',
-        date: new Date("2023-05-29"),
-        description: 'Rases Soccer',
-        amount: 980.00,
-    },  
-    {
-        id: 'e10',
-        date: new Date("2023-06-29"),
-        description: 'Petrol',
-        amount: 5577.25,
-    },
-    {
-        id: 'e11',
-        date: new Date("2023-07-03"),
-        description: 'Gym Subscription',
-        amount: 988.25,
-    },
-    {
-        id: 'e12',
-        date: new Date("2023-07-05"),
-        description: 'Fentse',
-        amount: 2500.00,
-    },
-]
-
 export const ExpensesContext = createContext({
     expenses: [],
+    fetchExpenses: ([])=>{},
     addExpense: ({date, description, amount}) => {},
     deleteExpense: (id) => {},
     updateExpense: ( id, {date, description, amount} ) => {},
@@ -87,8 +13,8 @@ function expensesReducer(state, action) {
     switch(action.type) {
 
         case 'ADD': {
-            const newId = new Date().toString() + Math.random().toString()
-            return [ { ...action.payload, id: newId }, ...state ]  
+            // const newId = new Date().toString() + Math.random().toString()
+            return [ { ...action.payload }, ...state ]  
         }
         
         case 'UPDATE': {
@@ -106,6 +32,10 @@ function expensesReducer(state, action) {
                 return expense.id !== action.payload
             })           
         }
+        case 'FETCH': {
+            const inverted = action.payload.reverse()
+            return inverted
+        }
         default: {
             return state
         }
@@ -114,7 +44,11 @@ function expensesReducer(state, action) {
 
 function ExpensesContextProvider({children}) {
     
-    const [expensesState, dispatch] = useReducer(expensesReducer, DUMMY_DATA)
+    const [expensesState, dispatch] = useReducer(expensesReducer, [])
+
+    const fetchExpenses = (expensesData) => {
+        dispatch({ type: 'FETCH', payload: expensesData})
+    }
 
     const addExpense = (expenseData) => {
         dispatch({ type: 'ADD', payload: expenseData})
@@ -130,6 +64,7 @@ function ExpensesContextProvider({children}) {
     
     const value = {
         expenses: expensesState,
+        fetchExpenses: fetchExpenses,
         addExpense: addExpense,
         deleteExpense: deleteExpense,
         updateExpense: updateExpense,

@@ -23,6 +23,8 @@ export default CustomButton
 
 const styles = StyleSheet.create({
     button: {
+        minHeight: 30,
+        minWidth: 100,
         borderRadius: 4,
         padding: 8,
         backgroundColor: GlobalStyles.colors.primary500,

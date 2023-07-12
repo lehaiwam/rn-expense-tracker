@@ -26,16 +26,6 @@ const styles = StyleSheet.create({
   expenseItemsContainer: {
     width: '100%',
     paddingVertical: 8,
-    /*
-    marginTop: 16,
-    // padding: 12,
-    paddingHorizontal: 8,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-   
-    borderColor: '#0f0fff',
-    borderWidth: 1,
-     */
   },
 
 })

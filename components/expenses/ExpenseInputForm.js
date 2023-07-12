@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import Input from './Input'
 import { GlobalStyles } from '../../constants/styles'
 import CustomButton from '../../UI/custombutton/CustomButton'
-// import { getFormattedDate } from '../../util/date'
 
 const ExpenseInputForm = ({ isEditing, onCancel, onConfirm, defaultValues }) => {
 
@@ -25,7 +24,6 @@ const ExpenseInputForm = ({ isEditing, onCancel, onConfirm, defaultValues }) => 
   const [ isFormDataInvalid, setIsFormDataInvalid ] = useState(false)
 
   const inputChangeHandler = ( identifier, enteredValue ) => {
-    // console.log('Entered Value: ', enteredValue, 'Id: ', identifier )
     setFormData( (currValuesState) => {
       return (
         { ...currValuesState, [identifier]: { value: enteredValue, isValid: true } }
@@ -40,17 +38,12 @@ const ExpenseInputForm = ({ isEditing, onCancel, onConfirm, defaultValues }) => 
       description: formData.description.value,
     }
 
-    // console.log('Submitted Data: ', submittedData)
     const enteredDateArr = submittedData.date.slice(0,10).split('-')
     const enteredYear = enteredDateArr[0]
-    // console.log('enteredYear: ', enteredYear)
     const enteredMonth = enteredDateArr[1]
-    // console.log('enteredMonth: ', enteredMonth)
     const enteredDay = enteredDateArr[2]
-    // console.log('enteredDay: ', enteredDay)
 
     const currDate = new Date().toISOString().slice(0, 10)
-    // console.log('currDate: ', currDate);
     const currDateArr = currDate.split('-')
     const currYear = currDateArr[0]
 
@@ -70,23 +63,12 @@ const ExpenseInputForm = ({ isEditing, onCancel, onConfirm, defaultValues }) => 
     }
 
     if (!dateIsValid) {
-      // console.log('\n   date is NOT valid...')
       setFormData( (currState) => {
         return(
           { ...currState, date: { isValid: dateIsValid} }
         )
       })
-
-      /*
-      Alert.alert(
-        'WARNING!', 
-        'Invalid transaction DATE entered!!! Please check and try again?', 
-        [{text: 'Okay', style:'cancel'}]
-      )
-      */
-
     } else {
-      //console.log('\n   date is valid...')
       setFormData( (currState) => {
         return(
           { ...currState, date: { value: submittedData.date, isValid: dateIsValid} } // Ensure we forward a Date() type variabl
@@ -96,21 +78,12 @@ const ExpenseInputForm = ({ isEditing, onCancel, onConfirm, defaultValues }) => 
 
     const amountIsValid = !isNaN(submittedData.amount) && submittedData.amount > 100
     if (!amountIsValid) {
-      // console.log('\n   amount is NOT valid...')
       setFormData( (currState) => {
         return(
           { ...currState, amount: { isValid: amountIsValid} }
         )
       })
-      /*
-      Alert.alert(
-        'WARNING!', 
-        'Invalid AMOUNT entered! Must be at least greater than R100!!! Please check and try again?', 
-        [{text: 'Okay', style:'cancel'}]
-      )
-      */
     } else {  
-      // console.log('\n   amount is valid...')
       setFormData( (currState) => {
         return(
           { ...currState, amount: { value: submittedData.amount, isValid: amountIsValid} }
@@ -120,12 +93,12 @@ const ExpenseInputForm = ({ isEditing, onCancel, onConfirm, defaultValues }) => 
 
     const descriptionIsValid = submittedData.description.trim().length > 3 && submittedData.description.trim().length <= 25
     if (!descriptionIsValid) {
-      // console.log('\n   description is NOT valid...')
       setFormData( (currState) => {
         return(
           { ...currState, description: { isValid: descriptionIsValid} }
         )
       })
+
       /*
       Alert.alert(
         'WARNING!', 
@@ -135,7 +108,6 @@ const ExpenseInputForm = ({ isEditing, onCancel, onConfirm, defaultValues }) => 
       */
 
     } else {
-      // console.log('\n   description is valid...')
       setFormData( (currState) => {
         return(
           { ...currState, description: { value: submittedData.description, isValid: descriptionIsValid} }
@@ -144,23 +116,13 @@ const ExpenseInputForm = ({ isEditing, onCancel, onConfirm, defaultValues }) => 
     }
 
     if (!dateIsValid || !amountIsValid || !descriptionIsValid) {
-      // console.log('\n   form data  is NOT valid...')
       setIsFormDataInvalid(true)
-      /*
-      setFormData( (currState) => {
-        return(
-          { ...currState, date: { value: inputStringDate, isValid: dateIsValid} }
-        )
-      })
-      */
       return
     }
-
     // console.log('\n   Data yote urembo sana!')
     submittedData.date = new Date(submittedData.date)
     onConfirm( submittedData )
   }
-
 
   return (
     <View style={styles.formContainer}>
@@ -191,7 +153,7 @@ const ExpenseInputForm = ({ isEditing, onCancel, onConfirm, defaultValues }) => 
           invalid = {!formData.amount.isValid}
           textInputConfig={{ 
             keyboardType: 'decimal-pad',
-            placeholder: '999.99',
+            placeholder: '0.00',
             value: formData.amount.value,
             onChangeText: inputChangeHandler.bind(this, 'amount'),           
           }}

@@ -4,8 +4,6 @@ import {GlobalStyles} from '../../constants/styles'
 
 const Input = ({ label, style, invalid, textInputConfig }) => {
 
-  // console.log(label, invalid)
-
   const inputStyles = [styles.input]
   
   if (textInputConfig && textInputConfig.multiline) {

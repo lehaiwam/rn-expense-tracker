@@ -4,37 +4,12 @@ import { GlobalStyles } from '../../constants/styles'
 import { getFormattedDate } from '../../util/date'
 import { useNavigation } from '@react-navigation/native'
 
-/*
-const getNewDate = (tranDate) => {
-
-    const monthDescriptions = [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-    ]
-
-    // const outStringInputDate = tranDate.toString()
-    const dateArr = tranDate.toString().split('/')
-    const strMon = dateArr[0]
-    const strDay = dateArr[1]
-    const strYear = dateArr[2]
-    // const monIndex = strMon.parseInt() - 1
-    // const outStrMon = monthDescriptions[strMon.parseInt() - 1]
-    const outStrDate = `${strDay}-${monthDescriptions[strMon.parseInt()-1]}-${strYear}`
-    console.log('Output date: ', outStrDate )
-    return outStrDate
-}
-*/
-
 const ExpenseItem = ({ id, date, description, amount }) => {
-
     const navigation = useNavigation()
-
     const openExpenseItem = () => {
-
         navigation.navigate('ManageExpenses', {
             tranId: id,
         })
-
     }
 
     return (

@@ -2,8 +2,6 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 const ExpensesSummary = ({expenses, expensesPeriod }) => {
-    // console.log('ExpensesSummary() expensesPeriod: ', expensesPeriod)
-    // console.log('expenses: ', expenses)
 
     const expensesSum = expenses.reduce(( sum, expenseItem )=> {
         return sum + expenseItem.amount
